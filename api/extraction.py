@@ -19,30 +19,6 @@ elif isinstance(data, dict):
 else:
     raise ValueError("Formato de JSON não suportado.")
 
-import json
-
-def mostrar_aninhamentos(d, caminho=""):
-    if isinstance(d, dict):
-        for chave, valor in d.items():
-            novo_caminho = f"{caminho}.{chave}" if caminho else chave
-            if isinstance(valor, dict):
-                print(f"Objeto aninhado em: {novo_caminho} (dict)")
-                mostrar_aninhamentos(valor, novo_caminho)
-            elif isinstance(valor, list):
-                print(f"Lista aninhada em: {novo_caminho} (list)")
-                mostrar_aninhamentos(valor, novo_caminho)
-    elif isinstance(d, list):
-        for i, item in enumerate(d):
-            novo_caminho = f"{caminho}[{i}]"
-            if isinstance(item, dict):
-                print(f"Objeto aninhado em: {novo_caminho} (dict)")
-                mostrar_aninhamentos(item, novo_caminho)
-            elif isinstance(item, list):
-                print(f"Lista aninhada em: {novo_caminho} (list)")
-                mostrar_aninhamentos(item, novo_caminho)
-
-
-mostrar_aninhamentos(data)
 
 
 # Informações iniciais
@@ -52,7 +28,33 @@ print("\nValores ausentes:\n", df.isnull().sum())
 print("\nTipos de dados:\n", df.dtypes)
 print("\nPrimeiras linhas:\n", df.head())
 
-flat = flatten(data)
-for k in flat:
-    print(k)
+#flat = flatten(data)
+#for k in flat:
+#    print(k)
 
+def encontrar_colunas(data, caminho="api/TelecomX_Data.json"):
+    colunas = set()
+    
+    if isinstance(data, dict):
+        for chave, valor in data.items():
+            novo_caminho = f"{caminho}.{chave}" if caminho else chave
+            colunas.update(encontrar_colunas(valor, novo_caminho))
+    
+    elif isinstance(data, list):
+        for item in data:
+            colunas.update(encontrar_colunas(item, caminho))
+    
+    else:
+        colunas.add(caminho)
+    
+    return colunas
+
+# Carrega o JSON do arquivo
+with open('api/TelecomX_Data.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+# Executa a função e mostra o resultado
+colunas_encontradas = encontrar_colunas(data)
+print("Colunas aninhadas encontradas:")
+for coluna in sorted(colunas_encontradas):
+    print("-", coluna)
