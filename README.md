@@ -3,16 +3,26 @@ Link da API:
 https://github.com/ingridcristh/challenge2-data-science/blob/main/TelecomX_Data.json
 https://github.com/ingridcristh/challenge2-data-science/tree/main
 
+
+![alt text](image.png)
+
 Motivos do churn segundo as variáveis apresentadas:
 Tempo de cliente (customer_tenure):
 
+![alt text](image-1.png)
+
 Clientes que saíram (Churn = Yes) têm em média menor tempo de permanência (aprox. 18 meses) comparado aos que ficaram (aprox. 38 meses).
+
+![alt text](image-4.png)
 
 Correlação negativa moderada (-0.34) indica que quanto menor o tempo de cliente, maior a chance de churn.
 
 Ou seja, clientes novos tendem a sair mais rápido.
 
+
 Valor da cobrança mensal (account_Charges_Monthly):
+
+![alt text](image-5.png)
 
 Clientes que saíram pagam em média mais caro por mês (74,44) que os que ficaram (61,27).
 
@@ -21,6 +31,8 @@ Correlação positiva (0.19) sugere que clientes com cobranças mensais mais alt
 Isso pode indicar insatisfação com custo-benefício, levando à saída.
 
 Idade (indicador customer_SeniorCitizen):
+
+![alt text](image-3.png)
 
 Clientes que saíram têm maior proporção de idosos (25%) do que os que ficaram (13%).
 
