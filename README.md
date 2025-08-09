@@ -1,3 +1,49 @@
+Conclusão (Resumo):
+
+Motivos do churn segundo as variáveis apresentadas:
+Tempo de cliente (customer_tenure):
+
+Clientes que saíram (Churn = Yes) têm em média menor tempo de permanência (aprox. 18 meses) comparado aos que ficaram (aprox. 38 meses).
+
+Correlação negativa moderada (-0.34) indica que quanto menor o tempo de cliente, maior a chance de churn.
+
+Ou seja, clientes novos tendem a sair mais rápido.
+
+Valor da cobrança mensal (account_Charges_Monthly):
+
+Clientes que saíram pagam em média mais caro por mês (74,44) que os que ficaram (61,27).
+
+Correlação positiva (0.19) sugere que clientes com cobranças mensais mais altas têm maior probabilidade de cancelar.
+
+Isso pode indicar insatisfação com custo-benefício, levando à saída.
+
+Idade (indicador customer_SeniorCitizen):
+
+Clientes que saíram têm maior proporção de idosos (25%) do que os que ficaram (13%).
+
+Correlação positiva (0.15) mostra que clientes idosos têm uma leve tendência a churn maior.
+
+Talvez por necessidades diferentes ou menos engajamento com os serviços.
+
+Resumo final
+O churn está acontecendo principalmente porque:
+
+Clientes novos (baixo tempo de contrato) têm maior risco de sair; talvez por falta de fidelização ou adaptação ao serviço.
+
+Clientes que pagam mensalidades mais altas parecem mais propensos a cancelar, sugerindo que preço ou percepção de valor podem ser um problema.
+
+Clientes idosos também apresentam maior tendência a cancelar, o que pode requerer atenção específica no atendimento ou oferta de serviços.
+
+Recomendações iniciais
+Investir em programas de fidelização e onboarding para clientes novos.
+
+Revisar estratégias de preço ou pacotes para clientes com cobranças altas.
+
+Oferecer suporte personalizado para clientes idosos.
+
+
+
+
 # telecomx_1
 Link da API:
 https://github.com/ingridcristh/challenge2-data-science/blob/main/TelecomX_Data.json
@@ -88,7 +134,6 @@ Este projeto realiza a extração do dataset TelecomX em JSON, normaliza os dado
 ### Estrutura do Projeto
 - `api/TelecomX_Data.json`: fonte de dados em JSON (ou `api/TelecomX_data.json`).
 - `api/extraction.py`: inspeção e exploração do JSON (dimensões, tipos, preview, chaves aninhadas).
-- `api/data_base_load.py`: normalização (flatten) e carga dos dados para SQLite.
 - `api/TelecomX_dicionario.md`: dicionário de dados (se aplicável).
 
 ### Pré-requisitos
@@ -108,10 +153,6 @@ pip install pandas
 python api/extraction.py
 ```
 
-2) Normalizar e carregar em SQLite:
-```bash
-python api/data_base_load.py
-```
 
 Saída esperada na execução de carga:
 - Preview do DataFrame (head)
@@ -137,25 +178,10 @@ O processo gera colunas como:
 - `internet.InternetService`, `internet.OnlineSecurity`, `internet.OnlineBackup`, `internet.DeviceProtection`, `internet.TechSupport`, `internet.StreamingTV`, `internet.StreamingMovies`
 - `account.Contract`, `account.PaperlessBilling`, `account.PaymentMethod`, `account.Charges.Monthly`, `account.Charges.Total`
 
-### Banco de Dados
-- Caminho: `api/telecomx.db`
-- Tabela: `telecomx_dados`
-- Tipos: colunas criadas como `TEXT` por simplicidade; números são armazenados como texto. Se desejar tipagem numérica, adapte a criação de tabela e conversões.
-
-Exemplo de consulta rápida:
-```python
-import sqlite3
-conn = sqlite3.connect('api/telecomx.db')
-cur = conn.cursor()
-cur.execute('SELECT COUNT(*) FROM telecomx_dados')
-print('Linhas:', cur.fetchone()[0])
-conn.close()
-```
-
 ### Solução de Problemas
 - Erro ao instalar pacotes (PEP 668): use ambiente virtual (`python3 -m venv .venv`).
 - JSON não encontrado: verifique nomes `TelecomX_Data.json` vs `TelecomX_data.json` e pasta `api/`.
-- Colunas ausentes: execute novamente a carga com a opção padrão que recria a tabela.
+
 
 ### Licença
 Uso educacional/demonstrativo. Ajuste conforme necessário.
